@@ -1,13 +1,15 @@
 #encoding:utf8
-import pymysql
 import re
-import jieba
-import pandas as pd
-from math import sqrt
 import time
 import math
+import jieba
+import pymysql
+import pandas as pd
+
+from math import sqrt
 from functools import reduce
 from operator import itemgetter
+
 from article_similarity.tfidf import TfIdf
 from article_similarity.naivebayesianpre import NaiveBayesian
 
@@ -56,6 +58,7 @@ class Cosine(object):
             trainlist = list(set(train1+train2))
             res1 = self.setofwords2vec(trainlist,j1)
             res2 = self.setofwords2vec(trainlist,j2)
+            #余弦定理
             cos1 = sqrt(reduce(lambda x,y:x+y,map(lambda x:x*x,[i for i in res1])))
             cos2 = sqrt(reduce(lambda x,y:x+y,map(lambda x:x*x,[i for i in res2])))
             sum = reduce(lambda x,y:x+y,map(lambda x1,x2:x1*x2,[x1 for x1 in res1],[x2 for x2 in res2]))
@@ -63,8 +66,6 @@ class Cosine(object):
             return res
         else:
             return 0.0
-
-
 
 
 if __name__ == '__main__':
